@@ -1,0 +1,27 @@
+{
+  "name": "recharts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "scripts": {
+    "start": "wp-scripts start",
+    "build": "wp-scripts build",
+    "lint:js": "wp-scripts lint-js",
+    "lint:css": "wp-scripts lint-style",
+    "format:js": "wp-scripts format-js"
+  },
+  "keywords": [
+    "wordpress dashboard widget",
+    "recharts"
+  ],
+  "author": "Abdul Hannan",
+  "license": "ISC",
+  "devDependencies": {
+    "@wordpress/scripts": "^27.9.0",
+    "recharts": "^2.12.6"
+  },
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  }
+}
