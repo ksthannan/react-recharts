@@ -19,54 +19,71 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define('RECHARTS_PLUGIN_FILE_PATH', plugin_dir_path( __FILE__ ));
 
-// Register the activation hook
-register_activation_hook( __FILE__, 'recharts_plugin_activate' );
+/**
+ * Autoload require
+ */
+require_once __DIR__ . "/vendor/autoload.php";
 
-add_action('init', 'recharts_init');
-function recharts_init(){
-    // Load text domain 
-    load_plugin_textdomain( 'recharts', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+class Recharts_Graph{
+    // Properties 
+    private static $instance = null;
+
+    public function __construct(){
+
+        // Register the activation hook
+        register_activation_hook( __FILE__, array($this, 'recharts_plugin_activate') );
+
+        // admin enqueue 
+        add_action('admin_enqueue_scripts', array($this, 'recharts_admin_enqueue_assets'));
+
+        // load features 
+        add_action('init', array($this, 'recharts_initialize_features'));
+
+        // Plugin Functions 
+        new Recharts\Graph\RechartsFunctions();
+
+        // Rest API 
+        new Recharts\Graph\RestApi();
+
+    }
+
+    // Plugin activate hook callback 
+    public function recharts_plugin_activate(){
+        do_action('recharts_plugin_activated');
+    }
+
+    /**
+     * Instance
+     */
+    public static function recharts_get_instance() {
+        if ( self::$instance == null ) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+
+    public function recharts_initialize_features(){
+        // Load text domain 
+        load_plugin_textdomain( 'recharts', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+
+    }
+
+    // Enqueue the admin scripts
+    function recharts_admin_enqueue_assets($hook) {
+
+        wp_enqueue_style('recharts-style', plugin_dir_url(__FILE__) . 'build/style-index.css', array(), '1.0.0', 'all');
+        wp_enqueue_script('recharts-script', plugin_dir_url(__FILE__) . 'build/index.js', array('wp-element'), '1.0.0', true);
+
+        // Localize script to pass data
+        wp_localize_script('recharts-script', 'rechartsObj', array(
+            'site_url' => site_url( '/' ),
+        ));
+    }
+
 }
 
-// Enqueue the React scripts
-function recharts_enqueue_scripts($hook) {
-
-    wp_enqueue_style('recharts-style', plugin_dir_url(__FILE__) . 'build/style-index.css', array(), '1.0.0', 'all');
-
-    wp_enqueue_script('recharts-script', plugin_dir_url(__FILE__) . 'build/index.js', array('wp-element'), '1.0.0', true);
-
-    // Localize script to pass data
-    wp_localize_script('recharts-script', 'rechartsObj', array(
-        'site_url' => site_url( '/' ),
-    ));
-
-}
-add_action('admin_enqueue_scripts', 'recharts_enqueue_scripts');
-
-
-// Hook into the 'wp_dashboard_setup' action to register our custom widget
-add_action('wp_dashboard_setup', 'recharts_dashboard_widgets');
-
-// Function to register the custom dashboard widget
-function recharts_dashboard_widgets() {
-    wp_add_dashboard_widget(
-        'recharts_widget', 
-        'Recharts',
-        'recharts_widget_content' 
-    );
-}
-
-// Function to display the content of the custom dashboard widget
-function recharts_widget_content() {
-    echo '<div id="rechart_root">'.__('Loading...', 'recharts').'</div>';
-}
-
-// Require files 
-require_once RECHARTS_PLUGIN_FILE_PATH . "inc/functions.php";
-require_once RECHARTS_PLUGIN_FILE_PATH . "inc/rest_api.php";
-
-
-
-
-
+/**
+ * Instantiate
+ */
+Recharts_Graph::recharts_get_instance();
 

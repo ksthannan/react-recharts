@@ -1,0 +1,19 @@
+{
+    "name": "recharts/graph",
+    "description": "WordPress dashboard widget recharts",
+    "autoload": {
+        "psr-4": {
+            "Recharts\\Graph\\": "inc/"
+        },
+        "files": [
+            "inc/RechartsFunctions.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "ksthannan",
+            "email": "abdulhannan.kum@gmail.com"
+        }
+    ],
+    "require": {}
+}
