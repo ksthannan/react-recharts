@@ -6,9 +6,8 @@ class RechartsFunctions{
 
     public function __construct(){
 
-        // Register the activation hook
+        // Do something after plugin activation
         add_action( 'recharts_plugin_activated', array($this, 'recharts_insert_data') );
-
         add_action( 'recharts_plugin_activated', array($this, 'recharts_demo_data_insert') );
 
         // Hook into the 'wp_dashboard_setup' action to register our custom widget

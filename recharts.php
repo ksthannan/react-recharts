@@ -71,10 +71,13 @@ class Recharts_Graph{
     // Enqueue the admin scripts
     function recharts_admin_enqueue_assets($hook) {
 
+        // Enqueue styles
         wp_enqueue_style('recharts-style', plugin_dir_url(__FILE__) . 'build/style-index.css', array(), '1.0.0', 'all');
+        
+        // Enqueue scripts 
         wp_enqueue_script('recharts-script', plugin_dir_url(__FILE__) . 'build/index.js', array('wp-element'), '1.0.0', true);
 
-        // Localize script to pass data
+        // Localize script
         wp_localize_script('recharts-script', 'rechartsObj', array(
             'site_url' => site_url( '/' ),
         ));
