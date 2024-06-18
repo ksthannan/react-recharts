@@ -7,7 +7,7 @@ class RechartsFunctions{
     public function __construct(){
 
         // Do something after plugin activation
-        add_action( 'recharts_plugin_activated', array($this, 'recharts_insert_data') );
+        add_action( 'recharts_plugin_activated', array($this, 'recharts_insert_data_table') );
         add_action( 'recharts_plugin_activated', array($this, 'recharts_demo_data_insert') );
 
         // Hook into the 'wp_dashboard_setup' action to register our custom widget
@@ -16,7 +16,7 @@ class RechartsFunctions{
     }
 
     // Create database table when activating plugin 
-    public function recharts_insert_data() {
+    public function recharts_insert_data_table() {
 
         global $wpdb;
 
