@@ -1,13 +1,20 @@
-#recharts_widget {
+#recharts-widget {
     overflow-x: scroll;
 }
-.graph_period {
+.graph-period {
     text-align: right;
 }
-.graph_period {
+.graph-period {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
     padding-bottom: 20px;
+}
+.recharts-wrapper {
+    max-width: 100%;
+}
+.simple-info{
+    text-align: center;
+    padding:20px auto;
 }

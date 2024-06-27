@@ -3,7 +3,7 @@
         'name' => 'recharts/graph',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '9c946f77a42e7376518344fda69946b4f9978506',
+        'reference' => '4ebe1f336a53f9e5900231a461c25a77f22d128b',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'recharts/graph' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '9c946f77a42e7376518344fda69946b4f9978506',
+            'reference' => '4ebe1f336a53f9e5900231a461c25a77f22d128b',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
